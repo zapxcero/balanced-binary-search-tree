@@ -1,11 +1,22 @@
+require_relative 'node'
+
 class Tree
+  attr_accessor :root
+
   def initialize(arr)
-    # @root = build_tree
+    @root = build_tree(arr)
   end
 
   def build_tree(arr)
-    # and turns it into a balanced binary tree full of Node objects appropriately placed (don’t forget to sort and remove duplicates!).
-    # return lv0 root node
+    return nil if arr.empty?
+
+    first = 0
+    last = arr.length - 1
+    root = (first + last) / 2
+
+    arr[root].left_child = build_tree(arr.slice(first, root))
+    arr[root].right_child = build_tree(arr.slice(root + 1, last))
+    arr[root]
   end
 
   def insert(val); end
@@ -58,4 +69,33 @@ class Tree
     # rebalances an unbalanced tree.
     # You’ll want to use a traversal method to provide a new array to the #build_tree method.
   end
+
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
+  end
 end
+
+node1 = Node.new
+node1.data = 1
+node2 = Node.new
+node2.data = 2
+node3 = Node.new
+node3.data = 3
+node4 = Node.new
+node4.data = 4
+node5 = Node.new
+node5.data = 5
+node6 = Node.new
+node6.data = 6
+node7 = Node.new
+node7.data = 7
+node8 = Node.new
+node8.data = 8
+node9 = Node.new
+node9.data = 9
+
+arr = [node1, node2, node3, node4, node5, node6, node7, node8, node9]
+x = Tree.new(arr)
+x.pretty_print

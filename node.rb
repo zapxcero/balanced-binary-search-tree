@@ -1,12 +1,8 @@
 class Node
   include Comparable
-  def initialize
-    @data = nil
-    @left_child = nil
-    @right_child = nil
-  end
+  attr_accessor :data, :left_child, :right_child
 
   def <=>(other)
-    # str.size <=> other.str.size
+    data <=> other.data
   end
 end
