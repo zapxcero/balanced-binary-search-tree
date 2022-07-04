@@ -35,15 +35,17 @@ class Tree
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 
-  def insert(val, base = root); end
+  def insert(val, node = root); end
 
-  def find(val, base = root)
-    return base if base.data == val || base.nil?
+  def delete(val, node = root); end
 
-    if val > base.data
-      find(val, base.right)
-    elsif val < base.data
-      find(val, base.left)
+  def find(val, node = root)
+    return node if node.data == val || node.nil?
+
+    if val > node.data
+      find(val, node.right)
+    elsif val < node.data
+      find(val, node.left)
     end
   end
 end
