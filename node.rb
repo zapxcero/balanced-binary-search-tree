@@ -1,6 +1,6 @@
 class Node
   include Comparable
-  attr_accessor :data, :left_child, :right_child
+  attr_accessor :data, :left, :right
 
   def initialize(data)
     self.data = data
