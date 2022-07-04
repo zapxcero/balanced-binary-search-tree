@@ -49,7 +49,29 @@ class Tree
     node
   end
 
-  def delete(val, node = root); end
+  def delete(val, node = root)
+    return node if node.nil?
+
+    if val > node.data
+      node.right = delete(val, node.right)
+    elsif val < node.data
+      node.left = delete(val, node.left)
+    else
+      if node.left.nil?
+        temp = node.right
+        node = nil
+        return temp
+      elsif node.right.nil?
+        temp = node.left
+        node = nil
+        return temp
+      end
+      temp = min_node(node.right)
+      node.data = temp.data
+      node.right = delete(temp.data, node.right)
+    end
+    node
+  end
 
   def find(val, node = root)
     return node if node.data == val || node.nil?
@@ -60,9 +82,15 @@ class Tree
       find(val, node.left)
     end
   end
+
+  def min_node(node = root)
+    current_node = node
+    current_node = current_node.left until current_node.left.nil?
+    current_node
+  end
 end
 
 arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 x = Tree.new(arr)
-x.insert(12)
+x.delete(67)
 x.pretty_print
