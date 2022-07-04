@@ -89,18 +89,18 @@ class Tree
     current_node
   end
 
-  def level_order(queue = [root], _nodes = [], &blk)
+  def level_order(queue = [root], arr = [], &blk)
     return if queue.empty?
 
     node = queue.shift
-    blk.call(node.data)
+    arr.append(node.data)
     queue.append node.left unless node.left.nil?
     queue.append node.right unless node.right.nil?
-    level_order(queue, &blk)
+    blk.call(node.data) if block_given?
+    level_order(queue, arr, &blk)
+    arr
   end
 end
 
 arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 x = Tree.new(arr)
-x.pretty_print
-x.level_order { |data| puts data }
