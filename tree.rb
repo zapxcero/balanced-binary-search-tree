@@ -100,7 +100,39 @@ class Tree
     level_order(queue, arr, &blk)
     arr
   end
+
+  def preorder(node = root, arr = [], &blk)
+    return if node.nil?
+
+    arr << node.data
+    blk.call(node.data) if block_given?
+    preorder(node.left, arr, &blk)
+    preorder(node.right, arr, &blk)
+    arr
+  end
+
+  def inorder(node = root, arr = [], &blk)
+    return if node.nil?
+
+    inorder(node.left, arr, &blk)
+    arr << node.data
+    blk.call(node.data) if block_given?
+    inorder(node.right, arr, &blk)
+    arr
+  end
+
+  def postoder(node = root, arr = [], &blk)
+    return if node.nil?
+
+    inorder(node.left, arr, &blk)
+    inorder(node.right, arr, &blk)
+    arr << node.data
+    blk.call(node.data) if block_given?
+    arr
+  end
 end
 
 arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 x = Tree.new(arr)
+x.pretty_print
+p x.preorder
