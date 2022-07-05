@@ -130,9 +130,21 @@ class Tree
     blk.call(node.data) if block_given?
     arr
   end
+
+  def height(node = root)
+    if node.nil?
+      -1
+    else
+      left_h = height(node.left)
+      right_h = height(node.right)
+      [left_h, right_h].max + 1
+    end
+  end
+
+  def depth(node); end
 end
 
 arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 x = Tree.new(arr)
 x.pretty_print
-p x.preorder
+p x.depth
