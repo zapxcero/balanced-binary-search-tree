@@ -141,10 +141,20 @@ class Tree
     end
   end
 
-  def depth(node); end
+  def depth(node, base = root, counter = 0)
+    return counter if node.data == base.data
+
+    if node.data > base.data
+      counter += 1
+      depth(node, base.right, counter)
+    elsif node.data < base.data
+      counter += 1
+      depth(node, base.left, counter)
+    end
+  end
 end
 
 arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 x = Tree.new(arr)
 x.pretty_print
-p x.depth
+p x.depth(x.root)
