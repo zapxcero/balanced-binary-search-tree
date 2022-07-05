@@ -9,7 +9,7 @@ class Tree
   end
 
   def to_node(arr)
-    arr = arr.uniq!.sort
+    arr = arr.sort.uniq
     arr_node = []
     arr.each do |el|
       arr_node.push(Node.new(el))
@@ -131,7 +131,7 @@ class Tree
     arr
   end
 
-  def height(node = root)
+  def height(node)
     if node.nil?
       -1
     else
@@ -152,9 +152,32 @@ class Tree
       depth(node, base.left, counter)
     end
   end
+
+  def balanced?
+    diff = height(root.left) - height(root.right)
+    !(diff.abs > 1)
+  end
+
+  def rebalance
+    # traverse the current tree, get data, and pass it to build_tree
+    self.arr = to_node(preorder)
+    self.root = build_tree(arr)
+  end
 end
 
-arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+# arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+arr = (Array.new(15) { rand(1..100) })
 x = Tree.new(arr)
+x.insert(422)
+x.insert(322)
+x.insert(421)
+x.insert(222)
 x.pretty_print
-p x.depth(x.root)
+p x.balanced?
+x.rebalance
+x.pretty_print
+p x.balanced?
+
+p x.preorder
+p x.inorder
+p x.postoder
