@@ -164,20 +164,3 @@ class Tree
     self.root = build_tree(arr)
   end
 end
-
-# arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-arr = (Array.new(15) { rand(1..100) })
-x = Tree.new(arr)
-x.insert(422)
-x.insert(322)
-x.insert(421)
-x.insert(222)
-x.pretty_print
-p x.balanced?
-x.rebalance
-x.pretty_print
-p x.balanced?
-
-p x.preorder
-p x.inorder
-p x.postoder
