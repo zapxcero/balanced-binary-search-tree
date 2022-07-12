@@ -132,13 +132,11 @@ class Tree
   end
 
   def height(node)
-    if node.nil?
-      -1
-    else
-      left_h = height(node.left)
-      right_h = height(node.right)
-      [left_h, right_h].max + 1
-    end
+    return -1 if node.nil?
+
+    left_h = height(node.left)
+    right_h = height(node.right)
+    [left_h, right_h].max + 1
   end
 
   def depth(node, base = root, counter = 0)
@@ -159,7 +157,6 @@ class Tree
   end
 
   def rebalance
-    # traverse the current tree, get data, and pass it to build_tree
     self.arr = to_node(preorder)
     self.root = build_tree(arr)
   end
